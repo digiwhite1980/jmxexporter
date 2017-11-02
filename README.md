@@ -25,7 +25,7 @@ HTTP_PORT=${HTTP_PORT:-5556}
 ## Configuration files
 currently only 2 configuration examples are added.
 
-* sandra_config.yml
+* cassandra_config.yml
 * httpserver_config.yml
 
 If custom configuration needs to be added, place in <workdir>/config. Dont forget to change JMX_CONF.
