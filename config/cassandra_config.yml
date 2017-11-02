@@ -1,0 +1,41 @@
+#---
+#hostPort: JMX_HOST:JMX_PORT
+#ssl: false
+#lowercaseOutputName: false
+#lowercaseOutputLabelNames: false
+#whitelistObjectNames: ["org.apache.cassandra.metrics:*"]
+#blacklistObjectNames: ["org.apache.cassandra.metrics:type=ColumnFamily,*"]
+#rules:
+#  - pattern: 'org.apache.cassandra.metrics<type=(\w+), name=(\w+)><>Value: (\d+)'
+#    name: cassandra_$1_$2
+#    value: $3
+#    valueFactor: 0.001
+#    labels: {}
+#    help: "Cassandra metric $1 $2"
+#    type: GAUGE
+#    attrNameSnakeCase: false
+---
+startDelaySeconds: 0
+jmxUrl: service:jmx:rmi:///jndi/rmi://JMX_HOST:JMX_PORT/jmxrmi
+username: JMX_USERNAME
+password: JMX_PASSWORD
+lowercaseOutputLabelNames: true
+lowercaseOutputName: true
+rules:
+- pattern: org.apache.cassandra.metrics<type=(Connection|Streaming), scope=(\S*), name=(\S*)><>(Count|Value)
+  name: cassandra_$1_$3
+  labels:
+    address: "$2"
+- pattern: org.apache.cassandra.metrics<type=(\S*)(?:, ((?!scope)\S*)=(\S*))?(?:, scope=(\S*))?,
+    name=(\S*)><>(Count|Value)
+  name: cassandra_$1_$5
+  labels:
+    "$1": "$4"
+    "$2": "$3"
+#- pattern: java.lang<type=(\S*)(?:, ((?!scope)\S*)=(\S*))?(?:, scope=(\S*))?,
+#    name=(\S*)><>(Count|Value)
+#  name: java_$1_$5
+#  labels:
+#    "$1": "$4"
+#    "$2": "$3"
+- pattern: ".*"

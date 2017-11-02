@@ -1,0 +1,9 @@
+startDelaySeconds: 0
+jmxUrl: service:jmx:rmi:///jndi/rmi://JMX_HOST:JMX_PORT/jmxrmi
+username: JMX_USERNAME
+password: JMX_PASSWORD
+lowercaseOutputLabelNames: true
+lowercaseOutputName: true
+
+rules:
+- pattern: "JMX_PATTERN"
