@@ -29,3 +29,8 @@ currently only 2 configuration examples are added.
 * httpserver_config.yml
 
 If custom configuration needs to be added, place in <workdir>/config. Dont forget to change JMX_CONF.
+
+## Kubernetes service + deployment
+An example for a jmxexporter deployment is added. Please not that an extra container needs to beeded like cassandra for metric collections.
+
+* jmxexporter.yaml

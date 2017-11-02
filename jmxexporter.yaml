@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  labels:
+    app: cassandra
+  annotations:
+    prometheus.io/port: '5556'
+    prometheus.io/scrape: 'true'
+  name: jmxexporter
+spec:
+  clusterIP: None
+  ports:
+    - name: jmxexporter
+      port: 5556
+  selector:
+    app: cassandra-data
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jmxexporter
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: jmxexporter
+    spec:
+      containers:
+      - name: jmxexporter
+        imagePullPolicy: Always
+        env:
+        - name: JMX_PORT
+          value: "7199"
+          #value: "7180"
+        - name: JMX_DOMAIN
+          value: "cassandra"
+        - name: JMX_CONF
+          value: "httpserver_config.yml"
+        image: digiwhite/jmx_exporter:latest
+        ports:
+        - containerPort: 5556
+          name: jmxexporter
