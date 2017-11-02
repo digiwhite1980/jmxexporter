@@ -2,7 +2,7 @@
 
 ## Parameterized docker startup
 This docker container contains the [jmx_exporter](https://github.com/prometheus/jmx_exporter) http server jar. 
-A entrypoint.sh file was added in order to make it configurable. 
+An entrypoint.sh file was added in order to make it configurable. 
 
 ## Parameters
 ```bash
