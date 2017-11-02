@@ -27,6 +27,7 @@ spec:
     metadata:
       labels:
         k8s-app: jmxexporter
+        app: cassandra-data
     spec:
       containers:
       - name: jmxexporter
